@@ -1,0 +1,124 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+@font-face {
+    font-family: "BA";
+    src: url('./NEXONFootballGothicBA1.woff2');
+}
+* {
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+    cursor: default;
+    /* color: white; */
+}
+body{
+    background: #bac4d2;
+}
+.form {
+    background: rgba(255, 255, 255, .3);
+    padding: 8px 50px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.form > * {
+    font-family: "Noto Sans";
+    font-size: 1.2rem;
+}
+.form .form-title {
+    margin-right: 10px;
+}
+.form #form-input {
+    width: 30vw;
+    background: transparent;
+    overflow: hidden;
+}
+.form #form-input,
+.form #form-input:focus{
+    outline: 0;
+    border: 0;
+}
+.form .btn {
+    padding: 2px 20px;
+    border-radius: 9999px;
+    border: 1px solid transparent;
+    background: transparent;
+    transition: .2s ease-in-out;
+}
+.form .btn:hover {
+    background: white;
+}
+.form .btn:active {
+    background: black;
+    color: white;
+}
+.result {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-self: start;
+}
+.result .student-potrait,
+.result .student-info {
+    width: 50%;
+}
+.result .student-potrait {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.result .student-potrait img {
+    height: 90vh;
+}
+.result .student-info .student-name p {
+    font-family: "BA";
+    font-style: italic;
+    font-weight: 500;
+    font-size: 2.5rem;
+    padding: 0 4px;
+    margin-bottom: 1rem;
+}
+.result .student-info .student-badge {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    height: 28px;
+}
+.result .student-info .student-badge .student-star,
+.result .student-info .student-badge .student-role {
+    display: flex;
+    align-items: center;
+    padding: 0 .6rem;
+    background: rgba(255, 255, 255, .3);
+    border-radius: 9999px;
+    margin-right: .4rem;
+}
+.result .student-info .student-badge .student-star i {
+    color: #fee268;
+}
+.result .student-info .student-badge .student-role.striker {
+    background: #cc1a25;
+}
+.result .student-info .student-badge .student-role.special {
+    background: #006bff;
+}
+.result .student-info .student-badge .student-role p {
+    font-family: "BA";
+    font-weight: 500;
+    font-style: italic;
+    color: white;
+    text-transform: uppercase;
+}
+.result .student-info .student-weapon img {
+    width: 20vw;
+}
+.result .failed-container {
+    font-family: "Noto Sans";
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+    min-width: 100%;
+}
+.result .failed-container p {
+    font-size: 3rem;
+}
