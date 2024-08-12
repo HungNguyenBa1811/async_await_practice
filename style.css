@@ -1,27 +1,48 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
-@font-face {
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
+/* @font-face {
     font-family: "BA";
     src: url('./NEXONFootballGothicBA1.woff2');
-}
+} */
 * {
     margin: 0;
     padding: 0;
     font-size: 16px;
     cursor: default;
+    font-family: "Nunito Sans";
     /* color: white; */
 }
 body{
-    background: #bac4d2;
+    background: #bac4d2 !important;
+}
+.table {
+    --bs-table-bg: transparent !important;
+    --bs-table-accent-bg: transparent !important;
+    --bs-table-striped-color: #212529 !important;
+    --bs-table-striped-bg: rgba(0, 0, 0, 0.05) !important;
+    --bs-table-active-color: #212529 !important;
+    --bs-table-active-bg: rgba(0, 0, 0, 0.1) !important;
+    --bs-table-hover-color: #212529 !important;
+    --bs-table-hover-bg: rgba(0, 0, 0, 0.075) !important;
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #212529;
+    vertical-align: top;
+    border-color: #dee2e6;
+}
+.container-xl {
+    overflow: hidden;
 }
 .form {
-    background: rgba(255, 255, 255, .3);
+    background: rgba(255, 255, 255, .7);
     padding: 8px 50px;
     display: flex;
     flex-direction: row;
     align-items: center;
+    position: fixed;
+    min-width: 100%;
+    z-index: 99;
 }
 .form > * {
-    font-family: "Noto Sans";
     font-size: 1.2rem;
 }
 .form .form-title {
@@ -52,14 +73,16 @@ body{
     color: white;
 }
 .result {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-self: start;
+    z-index: 1;
+    padding: 12px 16px;
+    position: relative;
+    top: 50px;
+    /* overflow: scroll; */
 }
 .result .student-potrait,
-.result .student-info {
-    width: 50%;
+.result .student-info,
+.result .student-info-stats {
+    padding: .8rem;
 }
 .result .student-potrait {
     display: flex;
@@ -69,10 +92,19 @@ body{
 .result .student-potrait img {
     height: 90vh;
 }
+.result .info {
+    background: #bac4d2;
+}
+.result .student-info {
+    background: #bac4d2;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
 .result .student-info .student-name p {
-    font-family: "BA";
+
     font-style: italic;
-    font-weight: 500;
+    font-weight: 700;
     font-size: 2.5rem;
     padding: 0 4px;
     margin-bottom: 1rem;
@@ -82,6 +114,7 @@ body{
     flex-direction: row;
     justify-content: start;
     height: 28px;
+    gap: .5rem;
 }
 .result .student-info .student-badge .student-star,
 .result .student-info .student-badge .student-role {
@@ -90,7 +123,6 @@ body{
     padding: 0 .6rem;
     background: rgba(255, 255, 255, .3);
     border-radius: 9999px;
-    margin-right: .4rem;
 }
 .result .student-info .student-badge .student-star i {
     color: #fee268;
@@ -101,18 +133,168 @@ body{
 .result .student-info .student-badge .student-role.special {
     background: #006bff;
 }
-.result .student-info .student-badge .student-role p {
-    font-family: "BA";
-    font-weight: 500;
+.result .student-info .student-badge .student-role span {
+    font-weight: 700;
     font-style: italic;
     color: white;
     text-transform: uppercase;
+    margin-bottom: 0;
 }
-.result .student-info .student-weapon img {
-    width: 20vw;
+.result .student-info-stats,
+.result .student-info-stats .pill {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: start;
+    align-self: center;
+}
+.result .student-info-stats .pill {
+    display: flex;
+    flex: 1;
+    flex-basis: 50%;
+    gap: .5rem;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-direction: row;
+    order: 1;
+}
+.student-info-pill {
+    background: rgba(255, 255, 255, .3);
+    font-weight: 600;
+    height: 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 .5rem 0 .5rem;
+    white-space: nowrap;
+    cursor: default;
+    border-radius: 9999px;
+    font-family: 'Nunito Sans';
+}
+.student-info-pill p {
+    margin: 0;
+    padding: .25rem .5rem;
+}
+.type-explosive,
+.type-light {
+    background-color: #a70c19;
+    color: white;
+}
+.type-piercing,
+.type-heavy {
+    background-color: #b26d1f;
+    color: white;
+}
+.type-mystic,
+.type-special {
+    background-color: #216f9c;
+    color: white;
+}
+.type-sonic,
+.type-elastic {
+    background-color: #9431a5;
+    color: white;
+}
+.type-pos {
+    background-color: #2c4563;
+    color: white;
+    text-transform: uppercase;
+    font-style: italic;
+}
+.text-bold {
+    font-weight: bold;
+}
+.student-terrain{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: .25rem;
+    order: 2;
+}
+.student-terrain img{
+    width: 34px;
+    height: 34px;
+}
+.student-terrain .terrain {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.3);
+    margin: auto;
+    padding: 3px;
+    border-radius: .25rem;
+
+}
+.student-terrain .terrain-icon {
+    display: inline-block;
+    background: rgba(255, 255, 255, .3);
+    border-radius: .25rem;
+}
+.student-terrain br ~ img {
+    width: 30px;
+    height: 30px;
+    margin: 6px 2px 2px 2px;
+}
+.student-info-profile .profile-header {
+    display: flex;
+    flex-direction: row;
+}
+.student-info-profile .profile-header img {
+    margin-right: 1rem;
+}
+.student-info-profile .profile-header .full-name {
+    margin: .25rem 0;
+}
+.student-info-profile .profile-header .full-name h3 {
+    margin: 0;
+}
+.school {
+    display: flex;
+    flex-direction: row;
+    gap: .5rem;
+}
+.student-info-profile .profile-header .school-label {
+    font-weight: 700;
+    margin-bottom: 0px;
+    margin-right: .25rem;
+}
+.student-info-profile .profile-header .school-year span {
+    background-color: #f5e94b;
+    border-radius: 999px;
+    font-weight: 600;
+    padding: 0 .5rem;
+    color: #2c4563;
+    margin-bottom: 0px;
+    white-space: nowrap;
+}
+.student-info-profile .profile-header .club {
+    font-weight: 400;
+    margin-bottom: 0px;
+}
+.profile-panel {
+    border-radius: .25rem;
+    table-layout: fixed;
+    background-color: rgba(255, 255, 255, 0.3);
+}
+.profile-panel td {
+    border: none;
+}
+.profile-panel .profile-detail {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.profile-panel .profile-detail .title {
+    font-weight: 500;
+}
+.profile-panel .profile-detail .detail {
+    font-weight: 700;
+}
+.profile-panel .separator {
+    border-top: rgba(0, 0, 0, 0.25) 1px solid;
+    min-width: 100%;
+}
+.intro {
+    white-space: pre-line;
 }
 .result .failed-container {
-    font-family: "Noto Sans";
     display: flex;
     justify-content: center;
     align-items: center;
@@ -121,4 +303,7 @@ body{
 }
 .result .failed-container p {
     font-size: 3rem;
+}
+.invert-light{
+    filter: invert(1);
 }

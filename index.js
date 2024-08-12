@@ -154,49 +154,53 @@
 // loadFile()
 
 // Fetch Data
-
 let btn = document.querySelector('.btn-submit');
 let resultDisplay = document.querySelector('.result');
 let dataFetch = [];
-
-const fetchBA = async (id) => {
-    try {
-        const res = await fetch(`https://api.ennead.cc/buruaka/character/${id}`);
-        if(res.status !== 200){
-            console.log("NO DATA AVAILABLE!");
-        } else {
-            const data = await res.json();
-            console.log(data);
-            alert("Found!")
-            resultDisplay.insertAdjacentHTML('beforeend', `
-                <img src="${data.image.icon}">
-            `);
-        }
-    } catch (err) {
-        console.log("ERRORRRR ARASFAFSFA");
-    }
+let localFetch = [];
+const adaptRes = {
+    0: 'D',
+    1: 'C',
+    2: 'B',
+    3: 'A',
+    4: 'SS',
+    5: 'SS'
 }
+
+// const fetchBA = async (id) => {
+//     try {
+//         const res = await fetch(`https://api.ennead.cc/buruaka/character/${id}`);
+//         if(res.status !== 200){
+//             console.log("NO DATA AVAILABLE!");
+//         } else {
+//             const data = await res.json();
+//             console.log(data);
+//             alert("Found!")
+//             resultDisplay.insertAdjacentHTML('beforeend', `
+//                 <img src="${data.image.icon}">
+//             `);
+//         }
+//     } catch (err) {
+//         console.log("ERRORRRR ARASFAFSFA");
+//     }
+// }
 
 const fetchBAFull = async () => {
     btn.disabled = true;
     try {
         const res = await fetch('https://beta.schaledb.com/data/en/students.min.json');
-        if(res.status !== 200){
+        const local = await fetch('https://schale.gg/data/en/localization.min.json');
+        if(res.status !== 200 || local.status !== 200){
             console.log("NO DATA AVAILABLE!");
         } else {
             const data = await res.json();
+            const _data = await local.json();
             dataFetch = data;
+            localFetch = _data;
             btn.disabled = false;
             console.log(dataFetch);
+            console.log(localFetch);
             await eventAdd();
-            // data.forEach(student => {
-            //     resultDisplay.insertAdjacentHTML('beforeend', `
-            //         <img src="https://schale.gg/images/student/collection/${student.Id}.webp">
-            //                                     images/student/portrait/10000.webp
-            //                                     images/weapon/weapon_icon_10000.webp
-            //         <p>${student.Name}</p>
-            //     `);                
-            // });
         }
     } catch (err) {
         console.log("ERRORRRR ARASFAFSFA");
@@ -228,35 +232,232 @@ const eventAdd = async () => {
 }
 
 const renderGeneral = (student) => {
+    document.querySelector(".bgbg").remove();
+    document.querySelector(".form").insertAdjacentHTML('beforebegin', `
+        <div style="width: 100vw;
+            height: 100vh;
+            position: fixed;
+            background: url('https://schale.gg/images/background/${student.CollectionBG}.jpg') no-repeat center center;
+            background-size: cover;
+            z-index: -1"
+            class="bgbg">
+        </div>
+    `)
     resultDisplay.insertAdjacentHTML('beforeend', `
-        <div class="student-potrait">
-            <img src="https://schale.gg/images/student/portrait/${student.Id}.webp">
-        </div>
-        <div class="student-info">
-            <div class="student-name">
-                <p>${student.Name}</p>
+        <div class="col-12 col-md-6">
+            <div class="student-potrait">
+                <img src="https://schale.gg/images/student/portrait/${student.Id}.webp">            
             </div>
-            <div class="student-badge">
-                <div class="student-star"></div>
-                <div class="student-role"><p></p></div>                
-            </div>               
         </div>
-
+        <div class="col-12 col-md-6 info">
+            <div class="student-info">
+                <div>
+                    <div class="student-name">
+                        <p>${student.Name}</p>
+                    </div>
+                    <div class="student-badge">
+                        <div class="student-star"></div>
+                        <div class="student-role">
+                            <span></span>
+                        </div>                
+                    </div>               
+                </div>
+                <div>
+                    <div class="student-school invert-light">
+                        <img
+                            src="https://schale.gg/images/schoolicon/School_Icon_${student.School.toUpperCase()}_W.png"
+                            alt="${student.School}"
+                            width="84"
+                            height="76">
+                    </div>
+                </div>                    
+            </div>
+            <div class="student-info-stats">
+                <div class="pill">
+                    <div class="student-info-pill">
+                        <img
+                            src="https://schale.gg/images/ui/Role_${student.TacticRole}.png"
+                            alt=""
+                            height="26px"
+                            class="invert-light">
+                        <p>${localFetch.TacticRole[student.TacticRole]}</p>
+                    </div>
+                    <div class="student-info-pill type-${localFetch.BulletType[student.BulletType].toLowerCase()}">
+                        <img
+                            src="https://schale.gg/images/ui/Type_Attack.png"
+                            alt="ATK type"
+                            height="18px">
+                        <p>${localFetch.BulletType[student.BulletType]}</p>
+                    </div>
+                    <div class="student-info-pill type-${localFetch.ArmorType[student.ArmorType].toLowerCase()}">
+                        <img
+                            src="https://schale.gg/images/ui/Type_Defense.png"
+                            alt="DEF Type"
+                            height="18px">
+                        <p>${localFetch.ArmorType[student.ArmorType]}</p>
+                    </div>
+                    <div class="student-info-pill type-pos">
+                        <p>${student.Position.toUpperCase()}</p>
+                    </div>
+                    <div class="student-info-pill">
+                        <img
+                            src="https://schale.gg/images/schoolicon/School_Icon_${student.School.toUpperCase()}_W.png"
+                            alt=""
+                            height="26px"
+                            class="invert-light">
+                        <p>${localFetch.School[student.School]} / ${localFetch.Club[student.Club]}</p>
+                    </div>
+                </div>
+                <div class="student-terrain">
+                    <div class="terrain terrain-street">
+                        <div class="terrain-icon">
+                            <img
+                                src="https://schale.gg/images/ui/Terrain_Street.png"
+                                alt="Terrain_Street"
+                                class="invert-light">
+                        </div>
+                        <br>
+                        <img
+                            src="https://schale.gg/images/ui/Ingame_Emo_Adaptresult${adaptRes[student.StreetBattleAdaptation]}.png"
+                            alt="${adaptRes[student.StreetBattleAdaptation]}">
+                    </div>
+                    <div class="terrain terrain-outdoor">
+                        <div class="terrain-icon">
+                            <img
+                                src="https://schale.gg/images/ui/Terrain_Outdoor.png"
+                                alt="Terrain_Outdoor"
+                                class="invert-light">
+                        </div>
+                        <br>
+                        <img
+                            src="https://schale.gg/images/ui/Ingame_Emo_Adaptresult${adaptRes[student.OutdoorBattleAdaptation]}.png"
+                            alt="${adaptRes[student.OutdoorBattleAdaptation]}">
+                    </div>
+                    <div class="terrain terrain-indoor">
+                        <div class="terrain-icon">
+                            <img
+                                src="https://schale.gg/images/ui/Terrain_Indoor.png"
+                                alt="Terrain_Indoor"
+                                class="invert-light">
+                        </div>
+                        <br>
+                        <img
+                            src="https://schale.gg/images/ui/Ingame_Emo_Adaptresult${adaptRes[student.IndoorBattleAdaptation]}.png"
+                            alt="${adaptRes[student.IndoorBattleAdaptation]}">
+                    </div>
+                </div>
+            </div>
+            <div class="student-info-profile">
+                <div class="profile-header">
+                    <img
+                        src="https://schale.gg/images/student/collection/${student.Id}.webp"
+                        alt=""
+                        style="height: 96px; width: auto; border-radius: 8px;">
+                    <div>
+                        <div class="full-name">
+                            <h3>${student.FamilyName + " " + student.Name}</h3>
+                        </div>
+                        <div>
+                            <div class="school">
+                                <div class="school-label">
+                                    <span>${localFetch.SchoolLong[student.School]}</span>
+                                </div>
+                                <div class="school-year">
+                                    <span>${student.SchoolYear}</span>
+                                </div>                                    
+                            </div>
+                            <div class="club">
+                                <span>${localFetch.Club[student.Club]}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <table class="table profile-panel mb-2 mt-3">
+                    <tbody>
+                        <tr>
+                            <td width="50%">
+                                <div class="profile-detail">
+                                    <span class="title">CV.</span>
+                                    <span class="detail ms-2">${student.CharacterVoice}</span>
+                                </div>
+                            </td>
+                            <td width="50%">
+                                <div class="profile-detail">
+                                    <span class="title">Birthday</span>
+                                    <span class="detail ms-2">${student.Birthday}</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="50%">
+                                <div class="profile-detail">
+                                    <span class="title">Age</span>
+                                    <span class="detail ms-2">${student.CharacterAge}</span>
+                                </div>
+                            </td>
+                            <td width="50%">
+                                <div class="profile-detail">
+                                    <span class="title">Height</span>
+                                    <span class="detail ms-2">${student.CharHeightMetric}</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="50%">
+                                <div class="profile-detail">
+                                    <span class="title">Design</span>
+                                    <span class="detail ms-2">${student.Designer}</span>
+                                </div>
+                            </td>
+                            <td width="50%">
+                                <div class="profile-detail">
+                                    <span class="title">Illustrator</span>
+                                    <span class="detail ms-2">${student.Illustrator}</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <div class="profile-detail">
+                                    <span class="title">Hobbies</span>
+                                    <span class="detail ms-2">${student.Hobby}</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <div class="separator"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="intro">${student.ProfileIntroduction}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     `);
 }
 
 const renderDetail = (student) => {
     const star = `<i class="fa fa-star"></i>`;
+    const SSRText = `<br><i class="text-bold">"${student.CharacterSSRNew}"</i>`
     let type = "";
-    let roleType = document.querySelector(".student-role p");
+    let roleType = document.querySelector(".student-role span");
     let roleContainer = document.querySelector(".student-role");
     let starContainer = document.querySelector(".student-star");
+    let introContainer = document.querySelector(".intro");
     for(let i = 0; i < student.StarGrade; i++){
         starContainer.insertAdjacentHTML('beforeend', star);
     }
-    type = (student.SquadType === "Main") ? "striker" : "special"
+    if(student.StarGrade === 3){
+        introContainer.insertAdjacentHTML('beforeend', SSRText)
+    }
+    type = localFetch.SquadType[student.SquadType];
+    // console.log(type);
     roleType.innerHTML = type;
-    roleContainer.classList.add(type);
+    roleContainer.classList.add(type.toLowerCase());
 }
 
 const stringPrettier = (str) => {
@@ -266,6 +467,9 @@ const stringPrettier = (str) => {
     if(str.includes(')')){
         str = str.replace('(', '_');
         str = str.replace(')', '');
+    }
+    if(str.includes("hotspring")){
+        str = str.replace("hotspring", "onsen");
     }
     return str;
 }
