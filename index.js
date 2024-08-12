@@ -187,6 +187,7 @@ const adaptRes = {
 
 const fetchBAFull = async () => {
     btn.disabled = true;
+    console.log("Fetching Data...");
     try {
         const res = await fetch('https://beta.schaledb.com/data/en/students.min.json');
         const local = await fetch('https://schale.gg/data/en/localization.min.json');
@@ -198,18 +199,28 @@ const fetchBAFull = async () => {
             dataFetch = data;
             localFetch = _data;
             btn.disabled = false;
-            console.log(dataFetch);
-            console.log(localFetch);
+            // console.log(dataFetch);
+            // console.log(localFetch);
+            console.log("Fetching Data Complete!");
             await eventAdd();
+            await enterAdd();
         }
     } catch (err) {
         console.log("ERRORRRR ARASFAFSFA");
     }
 }
 
+const enterAdd = async () => {
+    document.querySelector("#form-input").onkeydown = (event) => {
+        if(event.key === 'Enter') {
+            btn.click()
+        }
+    } 
+}
+
 const eventAdd = async () => {
     btn.addEventListener('click', () => {
-        resultDisplay.innerHTML = ' '
+        resultDisplay.innerHTML = ''
         let value = document.querySelector('#form-input').value;
         value = stringPrettier(value);
         console.log(value);
@@ -217,18 +228,31 @@ const eventAdd = async () => {
             return student.PathName === value;
         })
         if(student){
-            console.log(student);
+            // console.log(student);
             renderGeneral(student);
             renderDetail(student);
         } else {
-            resultDisplay.insertAdjacentHTML('beforeend', `
-                <div class="failed-container">
-                    <p class="failed-text">No student found!</p>
-                </div>
-            `)
-            // innerHTML = 'No student found!'
+            renderFailed();
         }
     })
+}
+
+const renderFailed = () => {
+    document.querySelector(".form").insertAdjacentHTML('beforebegin', `
+        <div style="width: 100vw;
+            height: 100vh;
+            position: fixed;
+            background: url('https://schale.gg/images/background/BG_ReceptionRoom.jpg') no-repeat center center;
+            background-size: cover;
+            z-index: -1"
+            class="bgbg">
+        </div>
+    `)
+    resultDisplay.insertAdjacentHTML('beforeend', `
+        <div class="failed-container">
+            <p class="failed-text">No student found!</p>
+        </div>
+    `)
 }
 
 const renderGeneral = (student) => {
@@ -244,7 +268,7 @@ const renderGeneral = (student) => {
         </div>
     `)
     resultDisplay.insertAdjacentHTML('beforeend', `
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-6 potrait">
             <div class="student-potrait">
                 <img src="https://schale.gg/images/student/portrait/${student.Id}.webp">            
             </div>
@@ -355,7 +379,7 @@ const renderGeneral = (student) => {
                         style="height: 96px; width: auto; border-radius: 8px;">
                     <div>
                         <div class="full-name">
-                            <h3>${student.FamilyName + " " + student.Name}</h3>
+                            <h3>${student.FamilyName + " " + student.PersonalName}</h3>
                         </div>
                         <div>
                             <div class="school">
@@ -454,6 +478,9 @@ const renderDetail = (student) => {
     if(student.StarGrade === 3){
         introContainer.insertAdjacentHTML('beforeend', SSRText)
     }
+    if(student.School === "ETC"){
+        document.querySelector(".school-year").remove();
+    }
     type = localFetch.SquadType[student.SquadType];
     // console.log(type);
     roleType.innerHTML = type;
@@ -463,14 +490,26 @@ const renderDetail = (student) => {
 const stringPrettier = (str) => {
     str = str.toLowerCase();
     str = str.trim(); // remove space back and front
-    str = str.replace(/ /g, ''); // remove multispace
-    if(str.includes(')')){
-        str = str.replace('(', '_');
+    str = str.replace(/ /g, '_'); // remove multispace
+    let check = false;
+    if(str.includes('_(')){
+        check = true;
+        str = str.replace('_(', '_');
         str = str.replace(')', '');
     }
-    if(str.includes("hotspring")){
-        str = str.replace("hotspring", "onsen");
+    if(str.includes('(') && !check){
+        check = true;
+        str = str.replace('(', '_');
+        str = str.replace(')', '');
+    }    
+    if(str.includes("hot_spring")){
+        str = str.replace("hot_spring", "onsen");
     }
+    if(str.includes("battle")) {
+        str = str.concat('_', 'dealer');
+    }
+    if(str === "misaka") return "misaka_mikoto";
+    if(str === "miku") return "hatsune_miku"
     return str;
 }
 

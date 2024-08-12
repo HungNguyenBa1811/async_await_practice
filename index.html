@@ -10,223 +10,22 @@
 </head>
 <body>
     <div class="form">
-        <label for="input" class="form-title">Enter a Blue Archive character name:</label>
+        <label for="input" class="form-title">Enter a playable Blue Archive character name:</label>
         <input type="text" name="input" id="form-input" placeholder="Example: Shigure">
         <button type="button" class="btn btn-submit">Get data!</button>
     </div>
     <div style="width: 100vw;
         height: 100vh;
         position: fixed;
+        background: url('https://schale.gg/images/background/BG_ReceptionRoom.jpg') no-repeat center center;
         background-size: cover;
         z-index: -1;
         filter: blur(5px);"
         class="bgbg">
     </div>
     <div class="container-xl">
-        <div class="row result">
-            <!-- <div class="col-12 col-md-6">
-                <div class="student-potrait">
-                    <img src="https://schale.gg/images/student/portrait/10055.webp">            
-                </div>
-            </div>
-            <div class="col-12 col-md-6 info">
-                <div class="student-info">
-                    <div>
-                        <div class="student-name">
-                            <p>Shigure</p>
-                        </div>
-                        <div class="student-badge">
-                            <div class="student-star">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                            <div class="student-role striker">
-                                <p>Striker</p>
-                            </div>                
-                        </div>               
-                    </div>
-                    <div>
-                        <div class="student-school invert-light">
-                            <img
-                                src="https://schale.gg/images/schoolicon/School_Icon_REDWINTER_W.png"
-                                alt="${student.School}"
-                                width="84"
-                                height="76">
-                        </div>
-                    </div>                    
-                </div>
-                <div class="student-info-stats">
-                    <div class="pill">
-                        <div class="student-info-pill">
-                            <img
-                                src="https://schale.gg/images/ui/Role_DamageDealer.png"
-                                alt=""
-                                height="26px"
-                                class="invert-light">
-                            <p>Dealer</p>
-                        </div>
-                        <div class="student-info-pill type-red">
-                            <img
-                                src="https://schale.gg/images/ui/Type_Attack.png"
-                                alt=""
-                                height="18px">
-                            <p>Explosive</p>
-                        </div>
-                        <div class="student-info-pill type-yellow">
-                            <img
-                                src="https://schale.gg/images/ui/Type_Defense.png"
-                                alt=""
-                                height="18px">
-                            <p>Heavy</p>
-                        </div>
-                        <div class="student-info-pill type-pos">
-                            <p>Middle</p>
-                        </div>
-                        <div class="student-info-pill">
-                            <img
-                                src="https://schale.gg/images/schoolicon/School_Icon_REDWINTER_W.png"
-                                alt=""
-                                height="26px"
-                                class="invert-light">
-                            <p>Red Winter / Spec Ops No. 227</p>
-                        </div>
-                    </div>
-                    <div class="student-terrain">
-                        <div class="terrain terrain-street">
-                            <div class="terrain-icon">
-                                <img
-                                    src="https://schale.gg/images/ui/Terrain_Street.png"
-                                    alt=""
-                                    class="invert-light">
-                            </div>
-                            <br>
-                            <img
-                                src="https://schale.gg/images/ui/Ingame_Emo_AdaptresultD.png"
-                                alt="">
-                        </div>
-                        <div class="terrain terrain-outdoor">
-                            <div class="terrain-icon">
-                                <img
-                                    src="https://schale.gg/images/ui/Terrain_Outdoor.png"
-                                    alt=""
-                                    class="invert-light">
-                            </div>
-                            <br>
-                            <img
-                                src="https://schale.gg/images/ui/Ingame_Emo_AdaptresultS.png"
-                                alt="">
-                        </div>
-                        <div class="terrain terrain-indoor">
-                            <div class="terrain-icon">
-                                <img
-                                    src="https://schale.gg/images/ui/Terrain_Indoor.png"
-                                    alt=""
-                                    class="invert-light">
-                            </div>
-                            <br>
-                            <img
-                                src="https://schale.gg/images/ui/Ingame_Emo_AdaptresultS.png"
-                                alt="">
-                        </div>
-                    </div>
-                </div>
-                <div class="student-info-profile">
-                    <div class="profile-header">
-                        <img
-                            src="https://schale.gg/images/student/collection/10055.webp"
-                            alt=""
-                            style="height: 96px; width: auto; border-radius: 8px;">
-                        <div>
-                            <div class="full-name">
-                                <h3>Mayoi Shigure</h3>
-                            </div>
-                            <div>
-                                <div class="school">
-                                    <div class="school-label">
-                                        <span>Red Winter Federal Academy</span>
-                                    </div>
-                                    <div class="school-year">
-                                        <span>2nd Year</span>
-                                    </div>                                    
-                                </div>
-                                <div class="club">
-                                    <span>Spec Ops No. 227</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <table class="table profile-panel mb-2 mt-3">
-                        <tbody>
-                            <tr>
-                                <td width="50%">
-                                    <div class="profile-detail">
-                                        <span class="title">CV.</span>
-                                        <span class="detail ms-2">Maki Kawase</span>
-                                    </div>
-                                </td>
-                                <td width="50%">
-                                    <div class="profile-detail">
-                                        <span class="title">Birthday</span>
-                                        <span class="detail ms-2">January 22nd</span>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td width="50%">
-                                    <div class="profile-detail">
-                                        <span class="title">Age</span>
-                                        <span class="detail ms-2">January 22nd</span>
-                                    </div>
-                                </td>
-                                <td width="50%">
-                                    <div class="profile-detail">
-                                        <span class="title">Height</span>
-                                        <span class="detail ms-2">January 22nd</span>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td width="50%">
-                                    <div class="profile-detail">
-                                        <span class="title">Design</span>
-                                        <span class="detail ms-2">January 22nd</span>
-                                    </div>
-                                </td>
-                                <td width="50%">
-                                    <div class="profile-detail">
-                                        <span class="title">Illustrator</span>
-                                        <span class="detail ms-2">January 22nd</span>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2">
-                                    <div class="profile-detail">
-                                        <span class="title">Hobbies</span>
-                                        <span class="detail ms-2">January 22nd</span>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2">
-                                    <div class="separator"></div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2">
-                                    <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span>
-                                    <br>
-                                    <i class="text-bold">"Do you need a place to warm up? Heehee... Just let me know."</i>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div> -->
-        </div>        
+        <div class="row result"></div>        
     </div>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="./index.js"></script>
 </body>

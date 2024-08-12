@@ -29,9 +29,9 @@ body{
     vertical-align: top;
     border-color: #dee2e6;
 }
-.container-xl {
+/* .container-xl {
     overflow: hidden;
-}
+} */
 .form {
     background: rgba(255, 255, 255, .7);
     padding: 8px 50px;
@@ -61,16 +61,22 @@ body{
 .form .btn {
     padding: 2px 20px;
     border-radius: 9999px;
-    border: 1px solid transparent;
-    background: transparent;
+    border: 1px solid white;
+    background: white;
     transition: .2s ease-in-out;
 }
-.form .btn:hover {
-    background: white;
+.form .btn:hover{
+    background: transparent;
+    border: 1px solid transparent;
+}
+.form .btn:active:hover {
+    background: black;
+    border: 1px solid transparent;
+    color: white;
 }
 .form .btn:active {
-    background: black;
-    color: white;
+    border: 1px solid white;
+    background: white;
 }
 .result {
     z-index: 1;
@@ -93,16 +99,14 @@ body{
     height: 90vh;
 }
 .result .info {
-    background: #bac4d2;
+    background: rgb(186 196 210 / 80%);
 }
 .result .student-info {
-    background: #bac4d2;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
 .result .student-info .student-name p {
-
     font-style: italic;
     font-weight: 700;
     font-size: 2.5rem;
@@ -306,4 +310,50 @@ body{
 }
 .invert-light{
     filter: invert(1);
+}
+
+@media only screen and (max-width: 767px) {
+    .potrait{
+        height: 50vh;
+        padding: .5rem;
+    }
+}
+
+@media(max-width: 767px) {
+    * {
+        font-size: 12px;
+    }
+    .form {
+        padding: 6px 10px;
+        justify-content: space-between;
+    }
+    .form .form-title,
+    .form #form-input,
+    .form .btn-submit {
+        margin-right: 0;
+        font-size: .9rem;
+    }
+    .form .form-title {
+        max-width: 30%;
+    }
+    .form #form-input {
+        min-width: 35%;
+        padding: .125rem .5rem;
+    }
+    .form #form-input::placeholder {
+        color: rgba(0, 0, 0, .3);
+    }
+    .potrait {
+        height: 60vh;
+    }
+    .result .student-potrait img {
+        height: 400px;
+        position: fixed;
+        top: 15vh;
+        margin-top: 0;
+        z-index: -10;
+    }
+    .student-info-stats {
+        gap: 0.75rem;
+    }
 }
